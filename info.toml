@@ -1,0 +1,10 @@
+[meta]
+name = "Best Splits"
+author = "poololol"
+version = "1.0.0"
+description = ""
+category = ""
+
+[script]
+dependencies = ["VehicleState", "MLFeedRaceData"]
+optional_dependencies = ["UltimateMedalsExtended"]
