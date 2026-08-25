@@ -3,7 +3,7 @@ name = "Best Splits"
 author = "poololol"
 version = "1.0.0"
 description = ""
-category = ""
+category = "Race"
 
 [script]
 dependencies = ["VehicleState", "MLFeedRaceData"]

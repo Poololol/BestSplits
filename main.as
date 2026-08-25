@@ -14,30 +14,28 @@ string mapName;
 string mapId;
 
 #if DEPENDENCY_ULTIMATEMEDALSEXTENDED
-    class SOBMedal : UltimateMedalsExtended::IMedal {
-        UltimateMedalsExtended::Config GetConfig() override { 
-            UltimateMedalsExtended::Config config; 
-            config.defaultName = 'Sum Of Best';
-            config.icon = "\\" + Text::FormatGameColor(sc_medal) + Icons::Circle;
-            return config;
-        }
-        uint medalTime;
-        
-        void UpdateMedal(const string &in uid) override {
-            this.medalTime = sumTimes(bestTimes) * 1000;
-        }
-
-        bool HasMedalTime(const string &in uid) override {
-            auto raceData = MLFeed::GetRaceData_V4();
-            return bestTimes.Length == raceData.CPsToFinish;
-        }
-        uint GetMedalTime() override {
-            this.UpdateMedal("");
-            return this.medalTime;
-        }
+class SOBMedal : UltimateMedalsExtended::IMedal {
+    UltimateMedalsExtended::Config GetConfig() override { 
+        UltimateMedalsExtended::Config config; 
+        config.defaultName = 'Sum Of Best';
+        config.icon = "\\" + Text::FormatGameColor(sc_medal) + Icons::Circle;
+        return config;
+    }
+    uint medalTime;
+    
+    void UpdateMedal(const string &in uid) override {
+        this.medalTime = sumTimes(bestTimes) * 1000;
     }
 
-
+    bool HasMedalTime(const string &in uid) override {
+        auto raceData = MLFeed::GetRaceData_V4();
+        return bestTimes.Length == raceData.CPsToFinish;
+    }
+    uint GetMedalTime() override {
+        this.UpdateMedal("");
+        return this.medalTime;
+    }
+}
 #endif
 
 void Main() {
@@ -185,7 +183,11 @@ float sumDiffTimes(float[] times, float[] times2) {
 
 void SaveToFile(const string &in mapUid) {
     if (mapUid == "") {
-        print("Empty map uid when saving");
+        print("Empty map uid when saving; skipping");
+        return;
+    }
+    if (bestTimes.Length == 0) {
+        print("No Data when saving; skipping");
         return;
     }
     IO::File file;

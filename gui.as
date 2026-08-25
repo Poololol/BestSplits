@@ -13,7 +13,7 @@ string FormatSpeedDelta(float delta) {
 
 void PushTimeDelta(float delta) {
     vec4 color;
-    float scale = Math::Max(-1, Math::Min(1, int(delta * sc_timeScale)));
+    float scale = Math::Max(-1, Math::Min(1, (delta * 1000) / sc_timeScale));
     if (scale > 0) {
         color = lerpColor(sc_timePlusMin, sc_timePlusMax, scale);
     } else if (scale == 0){
@@ -28,7 +28,7 @@ void PushTimeDelta(float delta) {
 void PushSpeedDelta(float delta) {
     vec4 color;
     float scale = Math::Max(-1, Math::Min(1, Math::Round(delta) / sc_speedScale));
-    if (scale < 0) {
+    if (scale > 0) {
         color = lerpColor(sc_speedMinusMin, sc_speedMinusMax, scale);
     } else if (scale == 0){
         color = sc_speedEqual;
@@ -41,7 +41,7 @@ void PushSpeedDelta(float delta) {
 }
 
 vec4 lerpColor(vec4 col1, vec4 col2, float t) {
-    t = Math::Max(Math::Min(1, t), 0);
+    t = Math::Max(Math::Min(1, Math::Abs(t)), 0);
     return vec4(col1 * (1 - t) + col2 * t);
 }
 

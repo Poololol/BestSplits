@@ -33,8 +33,8 @@ bool sc_bestPBSpeedDelta = true;
 bool sc_PBSpeedDelta = false;
 
 #if DEPENDENCY_ULTIMATEMEDALSEXTENDED
-[Setting category="Colors" name="Medal Color" color]
-vec3 sc_medal = vec3(204, 0, 204);
+[Setting category="Colors" name="Medal Color" color description="Have to reload plugin for changes to take effect"]
+vec3 sc_medal = vec3(204./255, 0, 204./255);
 #endif
 
 [Setting category="Colors" name="Time Equal" color]
@@ -47,7 +47,7 @@ vec4 sc_timeMinusMax = vec4(0.125, 0.125, 0.875, 1);
 vec4 sc_timePlusMin = vec4(1, 0.5, 0.5, 1);
 [Setting category="Colors" name="Time Plus Max" color]
 vec4 sc_timePlusMax = vec4(1, 0, 0, 1);
-[Setting category="Colors" name="Time Scale" description="in ms" min=0]
+[Setting category="Colors" name="Time Scale" description="Time in ms at which the Time Max colors will be used" min=0]
 int sc_timeScale = 1000;
 
 [Setting category="Colors" name="Speed Equal" color]
@@ -60,5 +60,5 @@ vec4 sc_speedMinusMax = vec4(0.125, 0.125, 0.875, 1);
 vec4 sc_speedPlusMin = vec4(1, 0.5, 0.5, 1);
 [Setting category="Colors" name="Speed Plus Max" color]
 vec4 sc_speedPlusMax = vec4(1, 0, 0, 1);
-[Setting category="Colors" name="Speed Scale" description="speeed" min=0]
+[Setting category="Colors" name="Speed Scale" description="Speed at which the Speed Max colors will be used" min=0]
 int sc_speedScale = 50;
