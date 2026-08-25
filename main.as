@@ -18,7 +18,7 @@ string mapId;
         UltimateMedalsExtended::Config GetConfig() override { 
             UltimateMedalsExtended::Config config; 
             config.defaultName = 'Sum Of Best';
-            config.icon = "\\$c0c" + Icons::Circle;
+            config.icon = "\\" + Text::FormatGameColor(sc_medal) + Icons::Circle;
             return config;
         }
         uint medalTime;

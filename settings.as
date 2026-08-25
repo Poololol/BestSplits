@@ -31,3 +31,34 @@ bool sc_bestSpeedDelta = true;
 bool sc_bestPBSpeedDelta = true;
 [Setting category="Columns" name="PB Speed Delta" description=""]
 bool sc_PBSpeedDelta = false;
+
+#if DEPENDENCY_ULTIMATEMEDALSEXTENDED
+[Setting category="Colors" name="Medal Color" color]
+vec3 sc_medal = vec3(204, 0, 204);
+#endif
+
+[Setting category="Colors" name="Time Equal" color]
+vec4 sc_timeEqual = vec4(0.625, 0.625, 0.625, 1);
+[Setting category="Colors" name="Time Minus Min" color]
+vec4 sc_timeMinusMin = vec4(0.625, 0.625, 0.875, 1);
+[Setting category="Colors" name="Time Minus Max" color]
+vec4 sc_timeMinusMax = vec4(0.125, 0.125, 0.875, 1);
+[Setting category="Colors" name="Time Plus Min" color]
+vec4 sc_timePlusMin = vec4(1, 0.5, 0.5, 1);
+[Setting category="Colors" name="Time Plus Max" color]
+vec4 sc_timePlusMax = vec4(1, 0, 0, 1);
+[Setting category="Colors" name="Time Scale" description="in ms" min=0]
+int sc_timeScale = 1000;
+
+[Setting category="Colors" name="Speed Equal" color]
+vec4 sc_speedEqual = vec4(0.625, 0.625, 0.625, 1);
+[Setting category="Colors" name="Speed Minus Min" color]
+vec4 sc_speedMinusMin = vec4(0.625, 0.625, 0.875, 1);
+[Setting category="Colors" name="Speed Minus Max" color]
+vec4 sc_speedMinusMax = vec4(0.125, 0.125, 0.875, 1);
+[Setting category="Colors" name="Speed Plus Min" color]
+vec4 sc_speedPlusMin = vec4(1, 0.5, 0.5, 1);
+[Setting category="Colors" name="Speed Plus Max" color]
+vec4 sc_speedPlusMax = vec4(1, 0, 0, 1);
+[Setting category="Colors" name="Speed Scale" description="speeed" min=0]
+int sc_speedScale = 50;
