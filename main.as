@@ -1,5 +1,6 @@
-float raceTime;
+float cpTime;
 float prevTime;
+float raceTime;
 float speed;
 bool spawned = false;
 bool inMap = false;
@@ -60,7 +61,7 @@ void Update(float dt) {
             pbSpeeds = {};
             currSpeeds = {};
             prevTime = -1.0f;
-            raceTime = 0.0f;
+            cpTime = 0.0f;
             spawned = false;
         }
         inMap = false;
@@ -83,11 +84,12 @@ void Update(float dt) {
         }
         return;
     };
+    raceTime = float(raceData.LocalPlayer.CurrentRaceTime) / 1000;
     spawned = true;
-    prevTime = raceTime;
+    prevTime = cpTime;
     if (raceData.LocalPlayer.CpCount > 0) {
         UpdateTimes();
-        if (prevTime != raceTime) {
+        if (prevTime != cpTime) {
             NewCheckpoint();
         }
         if (currTimes.Length == (raceData.CPCount + 1) * Math::Max(1, raceData.LapCount_Accurate)) {
@@ -115,18 +117,18 @@ void PlayerRetired() {
     currTimes = {};
     currSpeeds = {};
     prevTime = -1.0f;
-    raceTime = 0.0f;
+    cpTime = 0.0f;
     spawned = false;
 }
 
 void NewCheckpoint() {
-    currTimes.InsertLast(raceTime - prevTime);
+    currTimes.InsertLast(cpTime - prevTime);
     currSpeeds.InsertLast(speed);
     if (bestTimes.Length < currTimes.Length) {
         bestTimes.InsertLast(currTimes[bestTimes.Length]);
         bestSpeeds.InsertLast(currSpeeds[bestSpeeds.Length]);
     }
-    //print("Added CP: " + (raceTime - prevTime) + "  " + speed);
+    //print("Added CP: " + (cpTime - prevTime) + "  " + speed);
     //print("Num CPs: " + currTimes.Length + " BCP: " + bestTimes.Length);
 }
 
@@ -146,8 +148,8 @@ void UpdateTimes() {
             if (start != -1 && end != -1) {
                 auto manialinkname = curLayer.ManialinkPageUtf8.SubStr(start, end);
                 if (manialinkname.Contains("UIModule_Race_Checkpoint")) {
-                    auto raceTimeLabel = cast<CGameManialinkLabel@>(curLayer.LocalPage.GetFirstChild("label-race-time"));
-                    raceTime = Text::ParseFloat(raceTimeLabel.Value.SubStr(3)) + 60*Text::ParseInt(raceTimeLabel.Value.SubStr(0,2));
+                    auto cpTimeLabel = cast<CGameManialinkLabel@>(curLayer.LocalPage.GetFirstChild("label-race-time"));
+                    cpTime = Text::ParseFloat(cpTimeLabel.Value.SubStr(3)) + 60*Text::ParseInt(cpTimeLabel.Value.SubStr(0,2));
                     auto state = VehicleState::ViewingPlayerState();
                     if (state is null) return;
                     speed = state.WorldVel.Length();
@@ -159,7 +161,7 @@ void UpdateTimes() {
 }
 
 void Finish() {
-    if (pbTime == 0 || raceTime < pbTime) {
+    if (pbTime == 0 || cpTime < pbTime) {
         pbTimes = currTimes;
         pbTime = sumTimes(pbTimes);
         pbSpeeds = currSpeeds;

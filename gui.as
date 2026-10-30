@@ -90,6 +90,8 @@ void Render() {
         for (uint i = 0; i < bestTimes.Length; i++) {
             if (i < currTimes.Length) {
                 time += currTimes[i];
+            } else if (i == currTimes.Length) {
+                time += Math::Max(bestTimes[i], raceTime - time);
             } else {
                 time += bestTimes[i];
             }
