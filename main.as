@@ -90,7 +90,7 @@ void Update(float dt) {
         if (prevTime != raceTime) {
             NewCheckpoint();
         }
-        if (currTimes.Length == raceData.CPsToFinish) {
+        if (currTimes.Length == raceData.CPCount * Math::Max(1, raceData.LapCount_Accurate)) {
             Finish();
         }
     }
