@@ -29,7 +29,7 @@ class SOBMedal : UltimateMedalsExtended::IMedal {
 
     bool HasMedalTime(const string &in uid) override {
         auto raceData = MLFeed::GetRaceData_V4();
-        return bestTimes.Length == raceData.CPsToFinish;
+        return bestTimes.Length == (raceData.CPCount + 1) * Math::Max(1, raceData.LapCount_Accurate) && sumTimes(bestTimes) > 0;
     }
     uint GetMedalTime() override {
         this.UpdateMedal("");
@@ -239,6 +239,9 @@ float[] Convert(Json::Value value) {
 void OnDisabled() {
     SaveToFile(mapId);
     inMap = false;
+#if DEPENDENCY_ULTIMATEMEDALSEXTENDED
+    UltimateMedalsExtended::RemoveMedal("Sum Of Best");
+#endif
 }
 void OnDestroyed() {
     SaveToFile(mapId);
